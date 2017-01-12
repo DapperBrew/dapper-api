@@ -1,0 +1,86 @@
+[
+  {
+    "name": "CaraMunich",
+    "description": "A caramel copper colored malt used in Belgian ales and German bocks.",
+    "origin": "BE",
+    "supplier": "",
+    "type": "grain",
+    "srm": "56",
+    "moisture": "4",
+    "yield": "71.7",
+    "courseFineDifference": "1.5",
+    "potential": "1.033",
+    "diasticPower": "72",
+    "protein": "11.5",
+    "max": "10",
+    "recommendMash": true,
+    "afterBoil": false
+  },
+  {
+    "name": "American 2-Row",
+    "description": "A caramel copper colored malt used in Belgian ales and German bocks.",
+    "origin": "BE",
+    "supplier": "",
+    "type": "grain",
+    "srm": "20",
+    "moisture": "4",
+    "yield": "71.7",
+    "courseFineDifference": "1.5",
+    "potential": "1.033",
+    "diasticPower": "72",
+    "protein": "11.5",
+    "max": "10",
+    "recommendMash": true,
+    "afterBoil": false
+  },
+  {
+    "name": "Munich Malt",
+    "srm": "9",
+    "type": "grain"
+  },
+  {
+    "name": "Honey",
+    "srm": "1",
+    "type": "Sugar"
+  },
+  {
+    "name": "Amber Dry Extract",
+    "srm": "12.5",
+    "type": "Dry Extract"
+  },
+  {
+    "name": "Caramel/Crystal Malt - 120L",
+    "srm": "10",
+    "type": "grain"
+  },
+  {
+    "name": "Caramel/Crystal Malt - 80L",
+    "srm": "80",
+    "type": "grain"
+  },
+  {
+    "name": "Caramel/Crystal Malt - 60L",
+    "srm": "60",
+    "type": "grain"
+  },
+  {
+    "name": "Caramel/Crystal Malt - 40L",
+    "srm": "40",
+    "type": "grain"
+  },
+  {
+    "name": "Caramel/Crystal Malt - 30L",
+    "srm": "30",
+    "type": "grain"
+  },
+  {
+    "name": "Caramel/Crystal Malt - 20L",
+    "srm": "20",
+    "type": "grain"
+  },
+  {
+    "name": "Caramel/Crystal Malt - 10L",
+    "srm": "10",
+    "type": "grain"
+  }
+]
