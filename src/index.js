@@ -2,7 +2,6 @@ import http from 'http';
 import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
-import dotenv from 'dotenv';
 
 import initializeDb from './db';
 import middleware from './middleware';
@@ -13,7 +12,6 @@ const app = express();
 app.server = http.createServer(app);
 
 // initialize dotenv
-dotenv.config();
 
 // 3rd party middleware
 app.use(cors({ exposedHeaders: config.corsHeaders }));
