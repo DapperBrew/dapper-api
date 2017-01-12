@@ -27,9 +27,9 @@ initializeDb((db) => {
 
   app.use('/', routes);
 
-  app.server.listen(process.env.PORT || config.port);
-
-  console.log(`Started on port ${app.server.address().port}`); // eslint-disable-line
+  app.listen(process.env.PORT || 8080, () => {
+    console.log('Express server listening on port %d in %s mode', this.address().port, app.settings.env); // eslint-disable-line
+  });
 });
 
 export default app;
