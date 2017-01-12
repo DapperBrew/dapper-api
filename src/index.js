@@ -29,13 +29,10 @@ initializeDb((db) => {
 
   app.use('/', routes);
 
-  // app.server.listen(process.env.PORT || config.port);
 
   app.server.listen(process.env.PORT || config.port, () => {
-    console.log(`Started on port ${app.server.address().port}`);
+    console.log(`Started on port ${app.server.address().port}`);  // eslint-disable-line
   });
-
-  // console.log(`Started on port ${app.server.address().port}`); // eslint-disable-line
 });
 
 export default app;
