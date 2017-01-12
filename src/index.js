@@ -2,6 +2,7 @@ import http from 'http';
 import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
+import dotenv from 'dotenv';
 
 import initializeDb from './db';
 import middleware from './middleware';
@@ -12,6 +13,7 @@ const app = express();
 app.server = http.createServer(app);
 
 // initialize dotenv
+dotenv.config();
 
 // 3rd party middleware
 app.use(cors({ exposedHeaders: config.corsHeaders }));
@@ -27,9 +29,13 @@ initializeDb((db) => {
 
   app.use('/', routes);
 
-  app.listen(process.env.PORT || 8080, () => {
-    console.log('Express server listening on port %d in %s mode', this.address().port, app.settings.env); // eslint-disable-line
+  // app.server.listen(process.env.PORT || config.port);
+
+  app.server.listen(process.env.PORT || config.port, () => {
+    console.log(`Started on port ${app.server.address().port}`);
   });
+
+  // console.log(`Started on port ${app.server.address().port}`); // eslint-disable-line
 });
 
 export default app;
