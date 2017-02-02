@@ -1,7 +1,7 @@
 [
   {
     "name": "Irish Moss",
-    "type": "fining agent",
+    "type": "Fining Agent",
     "stage": "boil",
     "amount": "1",
     "amountUnit": "tsp",
@@ -12,13 +12,13 @@
   },
   {
     "name": "Yeast Nutrient",
-    "type": "other",
-    "stage": "boil",
+    "type": "Other",
+    "stage": "primary",
     "amount": ".5",
     "amountUnit": "tsp",
     "time": "1",
     "timeUnit": "day",
-    "useFor": "secondary",
+    "useFor": "Fermentation",
     "notes": ""
   },
   {
@@ -29,7 +29,7 @@
     "amountUnit": "tsp",
     "time": "10",
     "timeUnit": "min",
-    "useFor": "clarity",
+    "useFor": "Clarity",
     "notes": ""
   }
 ]
