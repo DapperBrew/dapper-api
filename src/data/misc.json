@@ -17,7 +17,7 @@
     "amount": ".5",
     "amountUnit": "tsp",
     "time": "1",
-    "timeUnit": "day",
+    "timeUnit": "days",
     "useFor": "Fermentation",
     "notes": ""
   },
