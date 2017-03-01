@@ -7,10 +7,18 @@ import hopRoutes from './hop.route';
 import styleRoutes from './style.route';
 import yeastRoutes from './yeast.route';
 import miscRoutes from './misc.route';
+import userRoutes from './user.route';
+import sessionRoutes from './session.route';
 
 const router = express.Router(); // eslint-disable-line new-cap
 
 // mount user routes at /users
+router.use('/users', userRoutes);
+
+// mount session routes at /sessions
+router.use('/sessions', sessionRoutes);
+
+// mount data routes
 router.use('/fermentables', fermentableRoutes);
 router.use('/styles', styleRoutes);
 router.use('/hops', hopRoutes);

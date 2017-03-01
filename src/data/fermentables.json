@@ -13,7 +13,7 @@
     "diasticPower": "72",
     "protein": "11.5",
     "max": "10",
-    "recommendMash": true,
+    "inMash": true,
     "afterBoil": false
   },
   {
@@ -30,8 +30,25 @@
     "diasticPower": "72",
     "protein": "11.5",
     "max": "10",
-    "recommendMash": true,
+    "inMash": true,
     "afterBoil": false
+  },
+  {
+    "name": "Corn Sugar (dextrose)",
+    "description": "",
+    "origin": "US",
+    "supplier": "",
+    "type": "sugar",
+    "srm": "0",
+    "moisture": "4",
+    "yield": "100",
+    "courseFineDifference": "1.5",
+    "potential": "1.046",
+    "diasticPower": "120",
+    "protein": "11.7",
+    "max": "5",
+    "inMash": false,
+    "afterBoil": true
   },
   {
     "name": "Munich Malt",
