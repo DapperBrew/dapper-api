@@ -28,12 +28,13 @@ export const signup = (req, res) => {
     .then((existingUser) => {
       // If user already exists, return an error
       if (existingUser) {
-        return res.status(422).send({ error: 'Email is in use' });
+        return res.status(422).send({ error: 'That email is registered to an existing account' });
       }
       // If a user does NOT exist, create and save user record
       const user = new User({
         email,
         password,
+        role: 'beta',
       });
       // save user
       user.save()
