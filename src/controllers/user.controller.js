@@ -25,14 +25,9 @@ export const signup = (req, res) => {
   let approvedUser;
   Approved.findOne({ email })
     .then((approvedEmail) => {
-      console.log('approved email', approvedEmail);
-      if (approvedEmail) {
-        approvedUser = true;
-      } else {
-        approvedUser = false;
-      }
-      console.log('approved user', approvedUser);
+      approvedUser = approvedEmail ? true : false;
     });
+  // END TEMP CODE
 
   if (!email || !password) {
     return res.status(422).send({ error: 'You must supply both an email and a password' });
@@ -53,21 +48,22 @@ export const signup = (req, res) => {
         return res.status(422).send({ error: 'That email is registered to an existing account' });
       }
 
-
-      // If a user does NOT exist, create and save user record
-      const user = new User({
-        email,
-        password,
-        role: 'beta',
-      });
-      // save user
-      user.save()
+      if (approvedUser) {
+        // If a user does NOT exist, create and save user record
+        const user = new User({
+          email,
+          password,
+          role: 'beta',
+        });
+        // save user
+        user.save()
         // Respond to request
         .then(res.json({ token: tokenForUser(user) }))
         .then(res.status(201))
         .catch((err) => {
           throw new Error(err);
         });
+      }
 
       return null;
     })
