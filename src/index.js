@@ -13,7 +13,8 @@ const app = express();
 app.server = http.createServer(app);
 
 // 3rd party middleware
-app.use(cors({ exposedHeaders: config.corsHeaders }));
+// app.use(cors({ exposedHeaders: config.corsHeaders }));
+app.use(cors());
 
 app.use(bodyParser.json({ limit: config.bodyLimit }));
 
