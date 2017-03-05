@@ -9,25 +9,13 @@ const requireAuth = passport.authenticate('jwt', { session: false });
 const requireSignin = passport.authenticate('local', { session: false });
 
 router.route('/')
-  /** GET /users - Get list of users */
+  /** GET /sessions - Checks for valid JWT token. Returns bool */
   .get(requireAuth, (req, res) => {
-    res.send({ hi: 'there' });
+    res.send({ isAuth: true });
   })
 
-  /** POST /fermentables - Create new fermentable */
+  /** POST /sessions - Create session */
   .post(requireSignin, signin);
 
-// router.route('/:fermentableId')
-//   /** GET /fermentables/:fermentableId - Get user */
-//   .get(hopCtrl.get)
-//
-//   /** PUT /fermentables/:userId - Update user */
-//   .put(hopCtrl.update)
-//
-//   /** DELETE /fermentables/:userId - Delete user */
-//   .delete(hopCtrl.remove);
-//
-// /** Load user when API with userId route parameter is hit */
-// router.param('userId', hopCtrl.load);
 
 export default router;
