@@ -4,10 +4,7 @@ import { signup } from '../controllers/user.controller';
 const router = express.Router(); // eslint-disable-line new-cap
 
 router.route('/')
-  /** GET /users - Get list of users */
-  // .get()
-
-  /** POST /fermentables - Create new fermentable */
+  /** POST /users - Create new user */
   .post(signup);
 
 // router.route('/:fermentableId')
