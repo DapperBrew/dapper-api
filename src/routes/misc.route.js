@@ -1,11 +1,14 @@
 import express from 'express';
+import passport from 'passport';
 import miscCtrl from '../controllers/misc.controller';
+
+const requireAuth = passport.authenticate('jwt', { session: false });
 
 const router = express.Router(); // eslint-disable-line new-cap
 
 router.route('/')
   /** GET /users - Get list of users */
-  .get(miscCtrl.list);
+  .get(requireAuth, miscCtrl.list);
 
 // /** POST /fermentables - Create new fermentable */
 // .post(miscCtrl.create);

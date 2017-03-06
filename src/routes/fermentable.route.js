@@ -1,11 +1,16 @@
 import express from 'express';
+import passport from 'passport';
+
 import fermentableCtrl from '../controllers/fermentable.controller';
 
 const router = express.Router(); // eslint-disable-line new-cap
+const requireAuth = passport.authenticate('jwt', { session: false });
+
 
 router.route('/')
-  /** GET /users - Get list of users */
-  .get(fermentableCtrl.list);
+  /** GET /fermentables - Get list of fermentables */
+  .get(requireAuth, fermentableCtrl.list);
+
 
 // /** POST /fermentables - Create new fermentable */
 // .post(fermentableCtrl.create);

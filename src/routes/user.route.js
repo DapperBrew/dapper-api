@@ -1,5 +1,5 @@
 import express from 'express';
-import { signup } from '../controllers/user.controller';
+import { signup, get } from '../controllers/user.controller';
 
 const router = express.Router(); // eslint-disable-line new-cap
 
@@ -7,10 +7,10 @@ router.route('/')
   /** POST /users - Create new user */
   .post(signup);
 
-// router.route('/:fermentableId')
-//   /** GET /fermentables/:fermentableId - Get user */
-//   .get(hopCtrl.get)
-//
+router.route('/:userId')
+  /** GET /fermentables/:fermentableId - Get user */
+  .get(get);
+
 //   /** PUT /fermentables/:userId - Update user */
 //   .put(hopCtrl.update)
 //

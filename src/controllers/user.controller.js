@@ -12,8 +12,17 @@ const tokenForUser = (user) => {
 
 mongoose.Promise = bluebird;
 
+export const get = (req, res) => {
+  User.findById(req.params.userId)
+    .then(user => res.json(user))
+    .catch(err => res.send(err));
+};
+
 export const signin = (req, res) => {
-  res.send({ token: tokenForUser(req.user) });
+  res.send({
+    token: tokenForUser(req.user),
+    id: req.user.id,
+  });
 };
 
 export const signup = (req, res) => {
@@ -58,7 +67,10 @@ export const signup = (req, res) => {
         // save user
         user.save()
         // Respond to request
-        .then(res.json({ token: tokenForUser(user) }))
+        .then(res.json({
+          token: tokenForUser(user),
+          id: res.id,
+        }))
         .then(res.status(201))
         .catch((err) => {
           throw new Error(err);

@@ -1,11 +1,13 @@
 import express from 'express';
+import passport from 'passport';
 import yeastCtrl from '../controllers/yeast.controller';
 
 const router = express.Router(); // eslint-disable-line new-cap
+const requireAuth = passport.authenticate('jwt', { session: false });
 
 router.route('/')
   /** GET /users - Get list of users */
-  .get(yeastCtrl.list);
+  .get(requireAuth, yeastCtrl.list);
 
 // /** POST /fermentables - Create new fermentable */
 // .post(yeastCtrl.create);
