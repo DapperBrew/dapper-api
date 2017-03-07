@@ -9,6 +9,7 @@ import yeastRoutes from './yeast.route';
 import miscRoutes from './misc.route';
 import userRoutes from './user.route';
 import sessionRoutes from './session.route';
+import recipeRoutes from './recipe.route';
 
 const router = express.Router(); // eslint-disable-line new-cap
 
@@ -17,6 +18,9 @@ router.use('/users', userRoutes);
 
 // mount session routes at /sessions
 router.use('/sessions', sessionRoutes);
+
+// mount recipe routes at /recipes
+router.use('/recipes', recipeRoutes);
 
 // mount data routes
 router.use('/fermentables', fermentableRoutes);
