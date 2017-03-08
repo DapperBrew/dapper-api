@@ -4,5 +4,9 @@
   "env": {
     "node": true,
     "es6": true
-  }
+  },
+
+  "rules": {
+    "no-unneeded-ternary": 0
+    }
 }

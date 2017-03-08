@@ -1,5 +1,10 @@
 import express from 'express';
-import { signup, get } from '../controllers/user.controller';
+import passport from 'passport';
+
+import { signup, getUser, getUserRecipes } from '../controllers/user.controller';
+
+const requireAuth = passport.authenticate('jwt', { session: false });
+
 
 const router = express.Router(); // eslint-disable-line new-cap
 
@@ -8,8 +13,12 @@ router.route('/')
   .post(signup);
 
 router.route('/:userId')
-  /** GET /fermentables/:fermentableId - Get user */
-  .get(get);
+  /** GET /users/:fermentableId - Get user */
+  .get(requireAuth, getUser);
+
+router.route('/:userId/recipes')
+  /** GET /users/:userId/recipes - Get all recipes for user */
+  .get(requireAuth, getUserRecipes);
 
 //   /** PUT /fermentables/:userId - Update user */
 //   .put(hopCtrl.update)

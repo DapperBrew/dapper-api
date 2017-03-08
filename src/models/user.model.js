@@ -8,11 +8,17 @@ const UserSchema = new Schema({
   email: { type: String, unique: true, lowercase: true },
   password: String,
   role: String,
+  recipes: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Recipes',
+  }],
 });
 
 
 UserSchema.pre('save', function (next) {
   const user = this;
+
+  if (!user.isModified('password')) return next();
 
   bcrypt.genSalt(10)
     .then(salt => bcrypt.hash(user.password, salt))

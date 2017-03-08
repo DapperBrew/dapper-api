@@ -5,6 +5,10 @@ const Schema = mongoose.Schema;
 
 const RecipeSchema = new Schema({
   name: String,
+  owner: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+  },
   style: String,
   efficiency: String,
   batchVolume: String,
@@ -65,6 +69,8 @@ const RecipeSchema = new Schema({
   boilVolume: String,
   trubChillerLoss: String,
   mashTemp: String,
+}, {
+  timestamps: true,
 });
 
 export default mongoose.model('Recipes', RecipeSchema);

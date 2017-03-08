@@ -1,11 +1,15 @@
 import express from 'express';
+import passport from 'passport';
+
 import { add } from '../controllers/recipe.controller';
 
 const router = express.Router(); // eslint-disable-line new-cap
+const requireAuth = passport.authenticate('jwt', { session: false });
+
 
 router.route('/')
   /** POST /users - Create new user */
-  .post(add);
+  .post(requireAuth, add);
 
 // router.route('/:userId')
   /** GET /fermentables/:fermentableId - Get user */

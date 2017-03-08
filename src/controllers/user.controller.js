@@ -2,6 +2,7 @@ import bluebird from 'bluebird';
 import mongoose from 'mongoose';
 import jwt from 'jsonwebtoken';
 import User from '../models/user.model';
+import Recipe from '../models/recipe.model';
 import Approved from '../models/approved.model';
 
 const tokenForUser = (user) => {
@@ -12,11 +13,31 @@ const tokenForUser = (user) => {
 
 mongoose.Promise = bluebird;
 
-export const get = (req, res) => {
+export const getUser = (req, res) => {
   User.findById(req.params.userId)
     .then(user => res.json(user))
     .catch(err => res.send(err));
 };
+
+export const getUserRecipes = (req, res) => {
+
+  let userId;
+  // use either the user id from the URL parma, or from the JWT response.
+  if (mongoose.Types.ObjectId.isValid(req.params.userId)) {
+    userId = req.params.userId;
+  } else if (mongoose.Types.ObjectId.isValid(req.user.id)) {
+    userId = req.user.id;
+  } else {
+    return res.status(400).send({ error: 'User ID is invalid' });
+  }
+
+  Recipe.find({ owner: userId }).select('-__v -owner')
+    .then(recipes => res.json(recipes))
+    .catch(err => res.send(err));
+
+  return null;
+};
+
 
 export const signin = (req, res) => {
   res.send({
