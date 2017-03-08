@@ -26,11 +26,11 @@ const RecipeSchema = new Schema({
       fermentableType: String,
       inMash: Boolean,
       afterBoil: Boolean,
+      potential: String,
     },
   ],
   hops: [
     {
-      _id: false,
       name: String,
       key: String,
       weight: String,
@@ -44,12 +44,12 @@ const RecipeSchema = new Schema({
     {
       _id: false,
       name: String,
+      supplier: String,
+      supplierId: String,
       key: String,
-      amount: String,
-      amountUnit: String,
-      time: String,
-      timeUnit: String,
-      stage: String,
+      averageAttenuation: String,
+      minTemp: String,
+      maxTemp: String,
     },
   ],
   miscs: [

@@ -1,7 +1,7 @@
 import express from 'express';
 import passport from 'passport';
 
-import { add } from '../controllers/recipe.controller';
+import { addRecipe, getRecipe, updateRecipe } from '../controllers/recipe.controller';
 
 const router = express.Router(); // eslint-disable-line new-cap
 const requireAuth = passport.authenticate('jwt', { session: false });
@@ -9,14 +9,14 @@ const requireAuth = passport.authenticate('jwt', { session: false });
 
 router.route('/')
   /** POST /users - Create new user */
-  .post(requireAuth, add);
+  .post(requireAuth, addRecipe);
 
-// router.route('/:userId')
-  /** GET /fermentables/:fermentableId - Get user */
-  // .get(get);
+router.route('/:recipeId')
+  /** GET /recips/:recipeId - Get recipe */
+  .get(requireAuth, getRecipe)
 
-//   /** PUT /fermentables/:userId - Update user */
-//   .put(hopCtrl.update)
+  /** PUT /fermentables/:userId - Update user */
+  .put(requireAuth, updateRecipe);
 //
 //   /** DELETE /fermentables/:userId - Delete user */
 //   .delete(hopCtrl.remove);
