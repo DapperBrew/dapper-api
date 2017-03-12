@@ -1,8 +1,8 @@
 import bluebird from 'bluebird';
+import omit from 'lodash/omit';
 import mongoose from 'mongoose';
 import Recipe from '../models/recipe.model';
 import User from '../models/user.model';
-import omit from 'lodash/omit';
 
 mongoose.Promise = bluebird;
 
@@ -42,10 +42,9 @@ export const getRecipe = (req, res) => {
 // Edit a recipe
 export const updateRecipe = (req, res) => {
   const id = req.params.recipeId.toString();
-  Recipe.findByIdAndUpdate(id, req.body.recipeSansId, { new: true })
-    .then((recipe) => {
-      // return recipe without version or owner
-      const newRecipe = omit(recipe.toObject(), '__v', 'owner');
-      res.status(201).json(newRecipe);
-    });
+  // remove "updatedAt" & "_id". (breaks otherwise)
+  delete req.body.recipe.updatedAt;
+  delete req.body.recipe._id;
+  Recipe.findByIdAndUpdate(id, req.body.recipe, { new: true })
+    .then((recipe) => res.status(201).json(recipe));
 };
