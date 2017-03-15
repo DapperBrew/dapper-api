@@ -5,31 +5,40 @@ import User from '../models/user.model';
 import Recipe from '../models/recipe.model';
 import Approved from '../models/approved.model';
 
+
+// Utility
+
+// returns a token for a user
 const tokenForUser = (user) => {
   const timestamp = new Date().getTime();
   return jwt.sign({ sub: user.id, iat: timestamp }, process.env.JWT_SECRET);
 };
 
+// Returns either the user id from the URL param, or from the JWT response.
+export const getUserId = (req) => {
+  let userId;
+  if (mongoose.Types.ObjectId.isValid(req.params.userId)) {
+    userId = req.params.userId;
+  } else if (mongoose.Types.ObjectId.isValid(req.user.id)) {
+    userId = req.user.id;
+  }
+  return userId;
+};
+
 
 mongoose.Promise = bluebird;
 
+// GET USER
 export const getUser = (req, res) => {
   User.findById(req.params.userId)
     .then(user => res.json(user))
     .catch(err => res.send(err));
 };
 
-export const getUserRecipes = (req, res) => {
 
-  let userId;
-  // use either the user id from the URL parma, or from the JWT response.
-  if (mongoose.Types.ObjectId.isValid(req.params.userId)) {
-    userId = req.params.userId;
-  } else if (mongoose.Types.ObjectId.isValid(req.user.id)) {
-    userId = req.user.id;
-  } else {
-    return res.status(400).send({ error: 'User ID is invalid' });
-  }
+// GET USER/RECIPES
+export const getUserRecipes = (req, res) => {
+  const userId = getUserId(req);
 
   Recipe.find({ owner: userId }).select('-__v -owner')
     .then(recipes => res.json(recipes))
@@ -38,7 +47,18 @@ export const getUserRecipes = (req, res) => {
   return null;
 };
 
+// GET USER/EQUIPMENTS
+export const getUserEquipments = (req, res) => {
+  const userId = getUserId(req);
 
+  User.findById(userId, 'recipes')
+    .then(user => res.json(user.recipes))
+    .catch(err => res.send(err));
+
+  return null;
+};
+
+// SIGN IN user
 export const signin = (req, res) => {
   res.send({
     token: tokenForUser(req.user),
@@ -46,6 +66,7 @@ export const signin = (req, res) => {
   });
 };
 
+// SIGN UP USER
 export const signup = (req, res) => {
   const email = req.body.email;
   const password = req.body.password;

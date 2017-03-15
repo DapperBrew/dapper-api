@@ -1,7 +1,7 @@
 import express from 'express';
 import passport from 'passport';
 
-import { signup, getUser, getUserRecipes } from '../controllers/user.controller';
+import { signup, getUser, getUserRecipes, getUserEquipments } from '../controllers/user.controller';
 
 const requireAuth = passport.authenticate('jwt', { session: false });
 
@@ -19,6 +19,10 @@ router.route('/:userId')
 router.route('/:userId/recipes')
   /** GET /users/:userId/recipes - Get all recipes for user */
   .get(requireAuth, getUserRecipes);
+
+router.route('/:userId/equipments')
+  /** GET /users/:userId/recipes - Get all recipes for user */
+  .get(requireAuth, getUserEquipments);
 
 //   /** PUT /fermentables/:userId - Update user */
 //   .put(hopCtrl.update)
