@@ -8,28 +8,28 @@ const EquipmentSchema = new Schema({
   recipeType: String,
   efficiency: String,
   batchSize: String,
-  topOffWater: String,
-  // mash
+  // mash & lauter
   mashTunVolume: String,
   mashTunWeight: String,
   mashTunMaterial: String,
   mashTunDeadspace: String,
   mashThickness: String,
-  // lauter
   lauterTunDeadspace: String,
+  mashTempAdjust: Boolean,
   // boil
   boilTime: String,
-  boilLossPerHour: String,
+  boilOff: String,
   boilTopUp: String,
   // Fermentation
-  trubChillerLoss: String,
+  trubLoss: String,
   fermenterLoss: String,
   fermenterTopUp: String,
   // Advanced
-  mashTunSpecificHeat: String,
-  grainVolume: String,
-  boilTemperature: String,
+  enableAdvanced: Boolean,
+  specificHeat: String,
+  boilTemp: String,
   wortShrinkage: String,
+  grainVolume: String,
   grainAbsorption: String,
 
 });

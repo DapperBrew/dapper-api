@@ -5,6 +5,7 @@ import User from '../models/user.model';
 import Recipe from '../models/recipe.model';
 import Approved from '../models/approved.model';
 
+mongoose.Promise = bluebird;
 
 // Utility
 
@@ -24,9 +25,8 @@ export const getUserId = (req) => {
   }
   return userId;
 };
+// END UTILITY
 
-
-mongoose.Promise = bluebird;
 
 // GET USER
 export const getUser = (req, res) => {
@@ -51,9 +51,24 @@ export const getUserRecipes = (req, res) => {
 export const getUserEquipments = (req, res) => {
   const userId = getUserId(req);
 
-  User.findById(userId, 'recipes')
-    .then(user => res.json(user.recipes))
+  User.findById(userId, 'equipments')
+    .then(user => res.json(user.equipments))
     .catch(err => res.send(err));
+
+  return null;
+};
+
+// PUT/CREATE USER/EQUIPMENTS
+export const createUserEquipment = (req, res) => {
+  const userId = getUserId(req).toString();
+
+  console.log(userId, req.body);
+
+  User.findByIdAndUpdate(userId, { $push: { equipments: { testing: 'testing' } } }, { new: true });
+
+  res.send({
+    gotit: 'Got it',
+  });
 
   return null;
 };
