@@ -34,7 +34,4 @@ const EquipmentSchema = new Schema({
 
 });
 
-export default mongoose.model('Equipments', EquipmentSchema);
-
-
-// mash tun addition
+export default EquipmentSchema;

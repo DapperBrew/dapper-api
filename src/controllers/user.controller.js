@@ -62,13 +62,22 @@ export const getUserEquipments = (req, res) => {
 export const createUserEquipment = (req, res) => {
   const userId = getUserId(req).toString();
 
-  console.log(userId, req.body);
-
-  User.findByIdAndUpdate(userId, { $push: { equipments: { testing: 'testing' } } }, { new: true });
-
-  res.send({
-    gotit: 'Got it',
-  });
+  User.findById(userId)
+    .then((user) => {
+      user.equipments.push({ ...req.body });
+      user.save();
+      return user.equipments.slice(-1)[0];
+    })
+    .then((equipment) => {
+      res.status(201).send({
+        message: 'Equipment profile saved.',
+        equipmentProfile: equipment,
+        id: equipment._id,
+      })
+    })
+    .catch((err) => {
+      throw new Error(err);
+    });
 
   return null;
 };
