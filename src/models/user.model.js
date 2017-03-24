@@ -1,7 +1,7 @@
 /* eslint-disable func-names */
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
-import Equipment from './equipment.model'
+import Equipment from './equipment.model';
 
 const Schema = mongoose.Schema;
 
@@ -13,7 +13,7 @@ const UserSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'Recipes',
   }],
-  equipments: [Equipment]
+  equipments: [Equipment],
 });
 
 

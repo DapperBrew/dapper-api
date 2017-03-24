@@ -73,13 +73,27 @@ export const createUserEquipment = (req, res) => {
         message: 'Equipment profile saved.',
         equipmentProfile: equipment,
         id: equipment._id,
-      })
+      });
     })
     .catch((err) => {
       throw new Error(err);
     });
 
   return null;
+};
+
+// EDIT EQUIPMENT
+export const editUserEquipment = (req, res) => {
+  const userId = getUserId(req).toString();
+  const id = req.params.equipmentId.toString();
+
+  User.findOneAndUpdate({ _id: userId, 'equipments._id': id }, { $set: { 'equipments.$': req.body.equipment } }, { new: true })
+    .then(() => {
+      res.status(201).send({ message: 'Equipment Profile updated' });
+    })
+    .catch((err) => {
+      throw new Error(err);
+    });
 };
 
 // SIGN IN user

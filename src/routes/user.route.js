@@ -1,7 +1,7 @@
 import express from 'express';
 import passport from 'passport';
 
-import { signup, getUser, getUserRecipes, getUserEquipments, createUserEquipment } from '../controllers/user.controller';
+import { signup, getUser, getUserRecipes, getUserEquipments, createUserEquipment, editUserEquipment } from '../controllers/user.controller';
 
 const requireAuth = passport.authenticate('jwt', { session: false });
 
@@ -27,8 +27,9 @@ router.route('/:userId/equipments')
   /** POST /users/:userId/equipments - Create equipment profiels for user */
   .post(requireAuth, createUserEquipment);
 
-//   /** PUT /fermentables/:userId - Update user */
-//   .put(hopCtrl.update)
+router.route('/:userId/equipments/:equipmentId')
+  /** PUT /users/:userId/equipments - Update user */
+  .put(requireAuth, editUserEquipment);
 //
 //   /** DELETE /fermentables/:userId - Delete user */
 //   .delete(hopCtrl.remove);

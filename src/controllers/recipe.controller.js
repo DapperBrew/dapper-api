@@ -46,5 +46,5 @@ export const updateRecipe = (req, res) => {
   delete req.body.recipe.updatedAt;
   delete req.body.recipe._id;
   Recipe.findByIdAndUpdate(id, req.body.recipe, { new: true })
-    .then((recipe) => res.status(201).json(recipe));
+    .then(recipe => res.status(201).json(recipe));
 };
