@@ -1,5 +1,5 @@
+/* eslint-disable no-underscore-dangle */
 import bluebird from 'bluebird';
-import omit from 'lodash/omit';
 import mongoose from 'mongoose';
 import Recipe from '../models/recipe.model';
 import User from '../models/user.model';

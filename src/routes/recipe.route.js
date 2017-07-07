@@ -15,7 +15,7 @@ router.route('/:recipeId')
   /** GET /recips/:recipeId - Get recipe */
   .get(requireAuth, getRecipe)
 
-  /** PUT /fermentables/:userId - Update user */
+  /** PUT /recipes/:recipeId - Update user */
   .put(requireAuth, updateRecipe);
 //
 //   /** DELETE /fermentables/:userId - Delete user */

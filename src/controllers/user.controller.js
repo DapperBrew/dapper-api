@@ -1,3 +1,5 @@
+/* eslint-disable no-underscore-dangle */
+
 import bluebird from 'bluebird';
 import mongoose from 'mongoose';
 import jwt from 'jsonwebtoken';

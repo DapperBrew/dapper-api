@@ -17,6 +17,8 @@ const UserSchema = new Schema({
 });
 
 
+// not to self:
+// Don't change this to arrow function, need "this"
 UserSchema.pre('save', function (next) {
   const user = this;
 
@@ -31,6 +33,7 @@ UserSchema.pre('save', function (next) {
     .catch((err) => {
       throw new Error(err);
     });
+  return null;
 });
 
 UserSchema.methods.comparePassword = function (candidatePassword, cb) {

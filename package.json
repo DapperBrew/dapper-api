@@ -8,9 +8,12 @@
     "dev": "nodemon -w src --exec \"babel-node src --presets es2015,stage-0\"",
     "build": "babel src -s -D -d dist --presets es2015,stage-0",
     "start": "node dist/index.js",
-    "prestart": "npm run -s build",
     "test": "eslint src",
-    "deploy": "gcloud app deploy"
+    "stage": "now -e DB_HOST=@host -e DB_USER=@user -e DB_PASS=@pass -e JWT_SECRET=@jwtsecret",
+    "deploy": "now -e DB_HOST=@host -e DB_USER=@user -e DB_PASS=@pass -e JWT_SECRET=@jwtsecret && now alias"
+  },
+  "now": {
+    "alias": "api.dapperbrew.com"
   },
   "repository": "DapperBrew/dapper-api",
   "dependencies": {
@@ -27,7 +30,7 @@
     "express": "^4.13.3",
     "install": "^0.8.7",
     "jsonwebtoken": "^7.3.0",
-    "mongoose": "^4.7.6",
+    "mongoose": "^4.9.0",
     "npm": "^4.3.0",
     "passport": "^0.3.2",
     "passport-jwt": "^2.2.1",
@@ -35,8 +38,8 @@
     "resource-router-middleware": "^0.5.1"
   },
   "devDependencies": {
-    "eslint": "^3.13.1",
-    "eslint-config-airbnb-base": "^11.0.1",
+    "eslint": "^3.18.0",
+    "eslint-config-airbnb-base": "^11.1.2",
     "eslint-plugin-import": "^2.2.0",
     "nodemon": "^1.9.2"
   }
