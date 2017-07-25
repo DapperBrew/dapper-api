@@ -28,14 +28,17 @@
     "cors": "^2.7.1",
     "dotenv": "^4.0.0",
     "express": "^4.13.3",
+    "express-validator": "^3.2.1",
     "install": "^0.8.7",
     "jsonwebtoken": "^7.3.0",
-    "mongoose": "^4.9.0",
+    "mongoose": "^4.11.4",
+    "mongoose-mongodb-errors": "0.0.2",
     "npm": "^4.3.0",
     "passport": "^0.3.2",
     "passport-jwt": "^2.2.1",
     "passport-local": "^1.0.0",
-    "resource-router-middleware": "^0.5.1"
+    "resource-router-middleware": "^0.5.1",
+    "validator": "^8.0.0"
   },
   "devDependencies": {
     "eslint": "^3.18.0",

@@ -1,7 +1,7 @@
 import express from 'express';
 import passport from 'passport';
 
-import { signup, getUser, getUserRecipes, getUserEquipments, createUserEquipment, editUserEquipment } from '../controllers/user.controller';
+import { signup, validate, getUser, getUserRecipes, getUserEquipments, createUserEquipment, editUserEquipment } from '../controllers/user.controller';
 
 const requireAuth = passport.authenticate('jwt', { session: false });
 
@@ -10,7 +10,7 @@ const router = express.Router(); // eslint-disable-line new-cap
 
 router.route('/')
   /** POST /users - Create new user */
-  .post(signup);
+  .post(validate, signup);
 
 router.route('/:userId')
   /** GET /users/:fermentableId - Get user */
