@@ -2,6 +2,8 @@ import http from 'http';
 import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
+import expressValidator from 'express-validator';
+
 import 'dotenv/config';
 
 import initializeDb from './db';
@@ -22,6 +24,9 @@ app.use(bodyParser.json({ limit: config.bodyLimit }));
 initializeDb((db) => {
   // internal middleware
   app.use(middleware({ config, db }));
+
+  // exposes methods for validating data
+  app.use(expressValidator());
 
   // api router
   app.use('/', routes);

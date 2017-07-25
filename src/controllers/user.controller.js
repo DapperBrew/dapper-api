@@ -106,6 +106,26 @@ export const signin = (req, res) => {
   });
 };
 
+export const validate = (req, res, next) => {
+  req.checkBody('email', 'That Email is not valid!').isEmail();
+  req.sanitizeBody('email').normalizeEmail({
+    remove_dots: false,
+    remove_extension: false,
+    gmail_remove_subaddress: false,
+  });
+  req.checkBody('password', 'Password cannot be blank!').notEmpty();
+  req.checkBody('passwordConfirm', 'Confirmed password cannot be blank!').notEmpty();
+  req.checkBody('passwordConfirm', 'Oops! Your passwords do not match').equals(req.body.password);
+
+  const errors = req.validationErrors();
+
+  if (errors) {
+    return res.status(422).send({ error: `${errors[0].msg}` });
+  }
+  next();
+  return null;
+};
+
 // SIGN UP USER
 export const signup = (req, res) => {
   const email = req.body.email;
@@ -131,7 +151,7 @@ export const signup = (req, res) => {
       // TEMP
       // only allow if user is on approved list
       if (approvedUser === false) {
-        return res.status(422).send({ error: 'Email address is not approved. Please contact hello@dapper.com for an invite' });
+        return res.status(422).send({ error: 'Email address is not approved. Please contact dan@dapperbrew.com for an invite' });
       }
 
       // If user already exists, return an error
@@ -139,26 +159,23 @@ export const signup = (req, res) => {
         return res.status(422).send({ error: 'That email is registered to an existing account' });
       }
 
-      if (approvedUser) {
-        // If a user does NOT exist, create and save user record
-        const user = new User({
-          email,
-          password,
-          role: 'beta',
-        });
-        // save user
-        user.save()
-        // Respond to request
-        .then(res.json({
-          token: tokenForUser(user),
-          id: res.id,
-        }))
-        .then(res.status(201))
-        .catch((err) => {
-          throw new Error(err);
-        });
-      }
-
+      // If a user does NOT exist, create and save user record
+      const user = new User({
+        email,
+        password,
+        role: 'beta',
+      });
+      // save user
+      user.save()
+      // Respond to request
+      .then(res.json({
+        token: tokenForUser(user),
+        id: res.id,
+      }))
+      .then(res.status(201))
+      .catch((err) => {
+        throw new Error(err);
+      });
       return null;
     })
     .catch((err) => {

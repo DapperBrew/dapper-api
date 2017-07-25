@@ -1,12 +1,21 @@
 /* eslint-disable func-names */
 import mongoose from 'mongoose';
+import mongodbErrorHandler from 'mongoose-mongodb-errors';
+import validator from 'validator';
 import bcrypt from 'bcrypt';
 import Equipment from './equipment.model';
 
 const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
-  email: { type: String, unique: true, lowercase: true },
+  email: {
+    type: String,
+    unique: true,
+    lowercase: true,
+    trim: true,
+    required: 'Please supply an email address',
+    validate: [validator.isEmail, 'Invalid Email Address'],
+  },
   password: String,
   role: String,
   recipes: [{
@@ -14,6 +23,8 @@ const UserSchema = new Schema({
     ref: 'Recipes',
   }],
   equipments: [Equipment],
+  resetPasswordToken: String,
+  resetPasswordExpires: Date,
 });
 
 
@@ -21,7 +32,6 @@ const UserSchema = new Schema({
 // Don't change this to arrow function, need "this"
 UserSchema.pre('save', function (next) {
   const user = this;
-
   if (!user.isModified('password')) return next();
 
   bcrypt.genSalt(10)
@@ -41,5 +51,7 @@ UserSchema.methods.comparePassword = function (candidatePassword, cb) {
     .then(isMatch => cb(null, isMatch))
     .catch(err => cb(err));
 };
+
+UserSchema.plugin(mongodbErrorHandler);
 
 export default mongoose.model('Users', UserSchema);
