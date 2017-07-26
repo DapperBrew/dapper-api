@@ -2,10 +2,12 @@
 
 import bluebird from 'bluebird';
 import mongoose from 'mongoose';
+import crypto from 'crypto';
 import jwt from 'jsonwebtoken';
 import User from '../models/user.model';
 import Recipe from '../models/recipe.model';
 import Approved from '../models/approved.model';
+
 
 mongoose.Promise = bluebird;
 
@@ -28,6 +30,66 @@ export const getUserId = (req) => {
   return userId;
 };
 // END UTILITY
+
+// FORGOT password
+export const forgotPassword = async (req, res) => {
+  const user = await User.findOne({ email: req.body.email });
+  if (!user) {
+    return res.status(422).send({ error: 'No account with that email exists' });
+  }
+  user.resetPasswordToken = crypto.randomBytes(20).toString('hex');
+  user.resetPasswordExpires = Date.now() + 3600000;
+  await user.save();
+
+  const resetURL = `/reset/${user.resetPasswordToken}`;
+  return res.status(422).send({ error: `${resetURL}` });
+};
+
+// Check if Reset Token is Valid
+export const checkResetToken = async (req, res) => {
+  try {
+    const user = await User.findOne({
+      resetPasswordToken: req.params.token,
+      resetPasswordExpires: { $gt: Date.now() },
+    });
+    if (!user) {
+      return res.status(422).send({ error: 'Password reset is invalid or has expired' });
+    }
+    res.end();
+    return null;
+  } catch (err) {
+    return res.status(422).send({ error: 'An error occured. Please contact help@dapperbrew.com' });
+  }
+};
+
+export const comparePassword = (req, res, next) => {
+  if (req.body.password === req.body.passwordConfirm) {
+    next();
+    return;
+  }
+  res.status(422).send({ error: 'Passwords do not match' });
+};
+
+// reset password
+export const resetPassword = async (req, res) => {
+  try {
+    const user = await User.findOne({
+      resetPasswordToken: req.body.resetToken,
+      resetPasswordExpires: { $gt: Date.now() },
+    });
+
+    if (!user) {
+      res.status(422).send({ error: 'Password reset is invalid or has expired' });
+    }
+    user.password = req.body.password;
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpires = undefined;
+    await user.save();
+    res.sendStatus(200);
+  } catch (err) {
+    res.status(422).send({ error: 'An error occured' });
+  }
+};
 
 
 // GET USER

@@ -1,7 +1,7 @@
 import express from 'express';
 import passport from 'passport';
 
-import { signin } from '../controllers/user.controller';
+import { signin, forgotPassword, checkResetToken, resetPassword, comparePassword } from '../controllers/user.controller';
 import '../services/passport';
 
 const router = express.Router(); // eslint-disable-line new-cap
@@ -20,5 +20,16 @@ router.route('/')
   /** POST /sessions - Create session */
   .post(requireSignin, signin);
 
+router.route('/forgot')
+  /** POST /forgot - submits email to "forgot password" */
+  .post(forgotPassword);
+
+router.route('/reset/:token')
+  /** GET /reset:token - checks if reset token is valid */
+  .get(checkResetToken);
+
+router.route('/reset')
+  /** POST /reset - Resets password */
+  .post(comparePassword, resetPassword);
 
 export default router;
