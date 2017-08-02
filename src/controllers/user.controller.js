@@ -7,6 +7,7 @@ import jwt from 'jsonwebtoken';
 import User from '../models/user.model';
 import Recipe from '../models/recipe.model';
 import Approved from '../models/approved.model';
+import { emailForgotPassword } from '../services/mail';
 
 
 mongoose.Promise = bluebird;
@@ -41,8 +42,12 @@ export const forgotPassword = async (req, res) => {
   user.resetPasswordExpires = Date.now() + 3600000;
   await user.save();
 
-  const resetURL = `/reset/${user.resetPasswordToken}`;
-  return res.status(422).send({ error: `${resetURL}` });
+  const resetURL = `https://dapperbrew.com/reset/${user.resetPasswordToken}`;
+  await emailForgotPassword({
+    user,
+    resetURL,
+  });
+  return res.end();
 };
 
 // Check if Reset Token is Valid
